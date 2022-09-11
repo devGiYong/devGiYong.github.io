@@ -4,9 +4,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Beautiful JSON</title>
+    <!-- Highlight CDN : START -->
+    <link rel="stylesheet"
+    href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <!-- Highlight CDN : END -->
+    <!-- Tailwindcss CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+        h1 {font-family: 'Black Han Sans', sans-serif;}
+    </style>
 </head>
 <body>
-    push test
+    <div class="container mx-auto">
+        <h1 class="text-orange-500 text-6xl text-center py-10">Beautiful JSON</h1>
+        <textarea id="input-text" class="block w-1/2 h-40 mx-auto border border-solid resize-none"></textarea>
+        <button onclick="jsonConversion()" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-auto block my-10 w-1/2">Convert</button>
+        <pre><code id="result-text" class="language-json block w-1/2 h-80 mx-auto border border-solid"></code></pre>
+        </textarea>
+    </div>
 </body>
+<script>
+    hljs.highlightAll();
+
+    init();
+
+    function init(){
+        let inputText = document.querySelector("#input-text");
+        inputText.focus();
+    }
+
+    function reset(){
+        let resultText = document.querySelector("#result-text");
+        resultText.innerHTML = "";
+    }
+
+    function setFormat(str){
+        return JSON.stringify(JSON.parse(str), null, 4);
+    }
+
+    function jsonConversion(){
+        reset();
+        let inputText = document.querySelector("#input-text");
+        let resultText = document.querySelector("#result-text");
+        let isJson = validate(inputText.value);
+        let result = "";
+        
+        if(isJson[0]){
+            result = setFormat(inputText.value);
+        } else {
+            result = isJson[1];
+        }
+
+        resultText.innerHTML = result;
+    }
+
+    function validate(str){
+        let result = [false, ""];
+        try {
+            let obj = JSON.parse(str);
+            result[0] = true;
+        } catch (error) {
+            result[1] = String(error);
+        }
+        return result;
+    }
+</script>
 </html>
