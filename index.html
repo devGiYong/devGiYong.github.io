@@ -12,7 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <!-- code mirror -->
     <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.js'></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/mode/xml/xml.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/mode/javascript/javascript.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/addon/fold/foldcode.min.js"></script>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css'>
     <!-- Tailwindcss CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,8 +47,10 @@
         lineNumbers: true,
         lineWrapping: true,
         theme: "darcula",
-        mode: {"json":true}
+        mode: "application/json"
+        // foldGutter: true
     });
+    // resultEditor.foldCode(CodeMirror.Pos(0, 0));
 
     function setFormat(str){
         return JSON.stringify(JSON.parse(str), null, 4);
